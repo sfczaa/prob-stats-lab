@@ -45,6 +45,94 @@ describe('point values (hand-checked)', () => {
     // F(2) = 1 − e^−2(1 + 2)
     expect(distributions.gamma.cdf(2, p)).toBeCloseTo(0.5939941503, 8)
   })
+
+  it('Uniform(0, 1)', () => {
+    const p = { a: 0, b: 1 }
+    expect(distributions.uniform.pdf(0.5, p)).toBe(1)
+    expect(distributions.uniform.cdf(0.25, p)).toBe(0.25)
+    expect(distributions.uniform.pdf(1.5, p)).toBe(0)
+  })
+
+  it('Chi-square(4)', () => {
+    const p = { k: 4 }
+    // pdf(2) = e^−1/2, F(2) = 1 − 2e^−1
+    expect(distributions.chisq.pdf(2, p)).toBeCloseTo(0.1839397206, 8)
+    expect(distributions.chisq.cdf(2, p)).toBeCloseTo(0.2642411177, 8)
+  })
+
+  it("Student's t(5)", () => {
+    const p = { nu: 5 }
+    // pdf(0) = Γ(3)/(√(5π)Γ(2.5))
+    expect(distributions.t.pdf(0, p)).toBeCloseTo(0.37961, 4)
+    expect(distributions.t.cdf(0, p)).toBeCloseTo(0.5, 10)
+    // t-table: t_{0.95, 5} = 2.015
+    expect(distributions.t.cdf(2.015, p)).toBeCloseTo(0.95, 3)
+  })
+
+  it('Lognormal(0, 0.5)', () => {
+    const p = { mu: 0, sigma: 0.5 }
+    expect(distributions.lognormal.cdf(1, p)).toBeCloseTo(0.5, 10)
+    // pdf(1) = 1/(0.5·√(2π))
+    expect(distributions.lognormal.pdf(1, p)).toBeCloseTo(0.7978845608, 8)
+    expect(distributions.lognormal.mean(p)).toBeCloseTo(Math.exp(0.125), 10)
+  })
+
+  it('Laplace(0, 1)', () => {
+    const p = { mu: 0, b: 1 }
+    expect(distributions.laplace.pdf(0, p)).toBe(0.5)
+    expect(distributions.laplace.cdf(1, p)).toBeCloseTo(1 - 0.5 / Math.E, 10)
+    expect(distributions.laplace.cdf(-1, p)).toBeCloseTo(0.5 / Math.E, 10)
+  })
+
+  it('Rayleigh(2)', () => {
+    const p = { sigma: 2 }
+    // F(2) = 1 − e^−0.5, pdf(2) = 0.5·e^−0.5
+    expect(distributions.rayleigh.cdf(2, p)).toBeCloseTo(0.3934693403, 8)
+    expect(distributions.rayleigh.pdf(2, p)).toBeCloseTo(0.3032653299, 8)
+  })
+
+  it('Bernoulli(0.3)', () => {
+    const p = { p: 0.3 }
+    expect(distributions.bernoulli.pmf(1, p)).toBeCloseTo(0.3, 12)
+    expect(distributions.bernoulli.pmf(0, p)).toBeCloseTo(0.7, 12)
+    expect(distributions.bernoulli.cdf(0, p)).toBeCloseTo(0.7, 12)
+    expect(distributions.bernoulli.cdf(1, p)).toBe(1)
+  })
+
+  it('Geometric(0.3)', () => {
+    const p = { p: 0.3 }
+    // 0.3 · 0.7²
+    expect(distributions.geometric.pmf(3, p)).toBeCloseTo(0.147, 10)
+    // 1 − 0.7³
+    expect(distributions.geometric.cdf(3, p)).toBeCloseTo(0.657, 10)
+    expect(distributions.geometric.pmf(0, p)).toBe(0)
+  })
+
+  it('Negative Binomial(3, 0.5)', () => {
+    const p = { r: 3, p: 0.5 }
+    // C(4,2)·0.5⁵
+    expect(distributions.negbinomial.pmf(5, p)).toBeCloseTo(0.1875, 10)
+    // I_{0.5}(3, 3) = 0.5 by symmetry
+    expect(distributions.negbinomial.cdf(5, p)).toBeCloseTo(0.5, 8)
+    expect(distributions.negbinomial.pmf(2, p)).toBe(0)
+  })
+
+  it('Hypergeometric(N=10, K=4, m=3)', () => {
+    const p = { N: 10, K: 4, m: 3 }
+    // C(4,1)C(6,2)/C(10,3) = 60/120
+    expect(distributions.hypergeom.pmf(1, p)).toBeCloseTo(0.5, 10)
+    // (C(6,3) + 60)/120 = 80/120
+    expect(distributions.hypergeom.cdf(1, p)).toBeCloseTo(2 / 3, 10)
+    expect(distributions.hypergeom.mean(p)).toBeCloseTo(1.2, 12)
+  })
+
+  it('Discrete Uniform(1, 6)', () => {
+    const p = { a: 1, b: 6 }
+    expect(distributions.duniform.pmf(3, p)).toBeCloseTo(1 / 6, 12)
+    expect(distributions.duniform.cdf(4, p)).toBeCloseTo(4 / 6, 12)
+    expect(distributions.duniform.mean(p)).toBe(3.5)
+    expect(distributions.duniform.variance(p)).toBeCloseTo(35 / 12, 12)
+  })
 })
 
 // ---- Self-consistency: pdf ↔ cdf ↔ closed-form moments -------------------
@@ -98,9 +186,14 @@ describe('self-consistency over the plotted range', () => {
       expect(num.mass).toBeGreaterThan(0.995)
       expect(num.mass).toBeLessThan(1.0001)
       expect(Math.abs(num.mean - mean)).toBeLessThan(0.05 * sd + 1e-6)
-      expect(Math.abs(num.variance - dist.variance(params))).toBeLessThan(
-        0.1 * dist.variance(params) + 1e-6,
-      )
+      // Heavy-tailed distributions (t, Lognormal) opt out: their second
+      // moment converges far outside the plotted range. The seeded sampler
+      // test below still verifies their variance.
+      if (!dist.testOverrides?.skipNumericVariance) {
+        expect(Math.abs(num.variance - dist.variance(params))).toBeLessThan(
+          0.1 * dist.variance(params) + 1e-6,
+        )
+      }
     })
 
     it(`${dist.name}: cdf agrees with integrated/summed density`, () => {

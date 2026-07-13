@@ -4,15 +4,17 @@ import {
   Tooltip, XAxis, YAxis,
 } from 'recharts'
 import {
-  distributions, defaultParams, continuousCurve, discretePoints,
+  distributions, defaultParams, updateParams, continuousCurve, discretePoints,
 } from '../lib/distributions.js'
 import { fmtNum, niceTicks } from '../lib/format.js'
 import { C, xAxisProps, yAxisProps } from './chartTheme.js'
 import ChartCard from './ChartCard.jsx'
 import ChartTooltip from './ChartTooltip.jsx'
 import DistPicker from './DistPicker.jsx'
+import EstimationPanel from './EstimationPanel.jsx'
 import ParamSlider from './ParamSlider.jsx'
 import StatTile from './StatTile.jsx'
+import TeX from './TeX.jsx'
 
 const CDF_TICKS = [0, 0.25, 0.5, 0.75, 1]
 
@@ -25,7 +27,7 @@ export default function DistributionLab() {
     setDistId(id)
     setParams(defaultParams(distributions[id]))
   }
-  const setParam = (key, value) => setParams((p) => ({ ...p, [key]: value }))
+  const setParam = (key, value) => setParams((p) => updateParams(dist, p, key, value))
 
   const isDiscrete = dist.kind === 'discrete'
   const data = useMemo(
@@ -77,16 +79,20 @@ export default function DistributionLab() {
         </div>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <StatTile label="Mean" value={fmtNum(mean)} caption={`E[X] = ${dist.meanFormula}`} />
+          <StatTile
+            label="Mean"
+            value={fmtNum(mean)}
+            caption={<TeX tex={`E[X] = ${dist.formulas.mean}`} />}
+          />
           <StatTile
             label="Variance"
             value={fmtNum(variance)}
-            caption={`Var(X) = ${dist.varianceFormula}`}
+            caption={<TeX tex={`\\operatorname{Var}(X) = ${dist.formulas.variance}`} />}
           />
           <StatTile
             label="Std. deviation"
             value={fmtNum(Math.sqrt(variance))}
-            caption="σ = √Var(X)"
+            caption={<TeX tex="\sigma = \sqrt{\operatorname{Var}(X)}" />}
           />
         </div>
 
@@ -183,6 +189,8 @@ export default function DistributionLab() {
             </ResponsiveContainer>
           </ChartCard>
         </div>
+
+        <EstimationPanel dist={dist} />
       </div>
     </div>
   )
