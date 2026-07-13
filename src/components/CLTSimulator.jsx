@@ -4,7 +4,7 @@ import {
   Tooltip, XAxis, YAxis,
 } from 'recharts'
 import {
-  distributions, defaultParams, continuousCurve, discretePoints,
+  distributions, defaultParams, updateParams, continuousCurve, discretePoints,
 } from '../lib/distributions.js'
 import { fmtNum } from '../lib/format.js'
 import { C, xAxisProps, yAxisProps } from './chartTheme.js'
@@ -58,7 +58,7 @@ export default function CLTSimulator() {
     reset()
   }
   const setParam = (key, value) => {
-    setParams((p) => ({ ...p, [key]: value }))
+    setParams((p) => updateParams(dist, p, key, value))
     reset()
   }
   const setSampleSize = (_, value) => {

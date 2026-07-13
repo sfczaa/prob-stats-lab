@@ -1,20 +1,23 @@
 import { useState } from 'react'
 import DistributionLab from './components/DistributionLab.jsx'
 import CLTSimulator from './components/CLTSimulator.jsx'
+import BivariateNormal from './components/BivariateNormal.jsx'
 
 const TABS = [
-  { id: 'lab', numeral: 'I', label: 'Distribution Lab' },
-  { id: 'clt', numeral: 'II', label: 'CLT Simulator' },
+  { id: 'lab', numeral: 'I', label: 'Distribution Lab', hash: '#lab' },
+  { id: 'clt', numeral: 'II', label: 'CLT Simulator', hash: '#clt' },
+  { id: 'bvn', numeral: 'III', label: 'Bivariate Normal', hash: '#bivariate' },
 ]
 
 export default function App() {
-  // '#clt' deep-links straight to the simulator
-  const [tab, setTab] = useState(() =>
-    window.location.hash === '#clt' ? 'clt' : 'lab',
-  )
+  // '#clt' / '#bivariate' deep-link straight to a section
+  const [tab, setTab] = useState(() => {
+    const t = TABS.find((x) => x.hash === window.location.hash)
+    return t ? t.id : 'lab'
+  })
   const switchTab = (id) => {
     setTab(id)
-    window.history.replaceState(null, '', id === 'clt' ? '#clt' : '#lab')
+    window.history.replaceState(null, '', TABS.find((x) => x.id === id).hash)
   }
 
   return (
@@ -52,7 +55,9 @@ export default function App() {
       </header>
 
       <main className="pt-6">
-        {tab === 'lab' ? <DistributionLab /> : <CLTSimulator />}
+        {tab === 'lab' && <DistributionLab />}
+        {tab === 'clt' && <CLTSimulator />}
+        {tab === 'bvn' && <BivariateNormal />}
       </main>
 
       <footer className="mt-12 border-t border-hairline pt-4 text-xs text-muted">

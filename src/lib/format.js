@@ -1,3 +1,7 @@
+/** Short display of a parameter value inside distribution notation. */
+export const fmtParam = (v) =>
+  Number.isInteger(v) ? String(v) : String(+v.toFixed(2))
+
 /** Round tick positions covering [lo, hi] with a 1/2/5×10^k step. */
 export function niceTicks(lo, hi, maxTicks = 7) {
   const span = hi - lo
