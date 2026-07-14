@@ -33,6 +33,8 @@ export const continuousDistributions = {
     range: (p) => [p.mu - 4 * p.sigma, p.mu + 4 * p.sigma],
     sample: (p, rng) => p.mu + p.sigma * sampleStdNormal(rng),
     formulas: {
+      model: 'X \\sim N(\\mu,\\sigma^2),\\ \\sigma>0',
+      density: 'f(x)=\\tfrac{1}{\\sigma\\sqrt{2\\pi}}\\,e^{-(x-\\mu)^2/(2\\sigma^2)},\\quad x\\in\\mathbb{R}',
       mean: '\\mu',
       variance: '\\sigma^2',
       mle: ['\\hat\\mu = \\bar X', '\\hat\\sigma^2 = \\tfrac{1}{n}\\sum_{i=1}^{n}(X_i-\\bar X)^2 = S_n^2'],
@@ -67,6 +69,8 @@ export const continuousDistributions = {
     },
     sample: (p, rng) => p.a + (p.b - p.a) * rng(),
     formulas: {
+      model: 'X \\sim U(a,b),\\ a<b',
+      density: 'f(x)=\\tfrac{1}{b-a},\\quad a\\le x\\le b',
       mean: '\\tfrac{a+b}{2}',
       variance: '\\tfrac{(b-a)^2}{12}',
       mle: ['\\hat a = X_{(1)}', '\\hat b = X_{(n)}'],
@@ -91,6 +95,8 @@ export const continuousDistributions = {
     range: (p) => [0, 6 / p.lambda],
     sample: (p, rng) => -Math.log(1 - rng()) / p.lambda,
     formulas: {
+      model: 'X \\sim \\mathrm{Exp}(\\lambda),\\ \\lambda>0',
+      density: 'f(x)=\\lambda e^{-\\lambda x},\\quad x\\ge 0',
       mean: '1/\\lambda',
       variance: '1/\\lambda^2',
       mle: ['\\hat\\lambda = 1/\\bar X'],
@@ -124,6 +130,8 @@ export const continuousDistributions = {
     },
     sample: (p, rng) => sampleGammaShape(p.alpha, rng) / p.rate,
     formulas: {
+      model: 'X \\sim \\mathrm{Gamma}(\\alpha,\\lambda),\\ \\alpha,\\lambda>0\\ \\text{(shape, rate)}',
+      density: 'f(x)=\\tfrac{\\lambda^{\\alpha}}{\\Gamma(\\alpha)}\\,x^{\\alpha-1}e^{-\\lambda x},\\quad x>0',
       mean: '\\alpha/\\lambda',
       variance: '\\alpha/\\lambda^2',
       mle: ['\\ln\\hat\\alpha - \\psi(\\hat\\alpha) = \\ln\\bar X - \\overline{\\ln X}', '\\hat\\lambda = \\hat\\alpha/\\bar X'],
@@ -162,6 +170,8 @@ export const continuousDistributions = {
       return x / (x + y)
     },
     formulas: {
+      model: 'X \\sim \\mathrm{Beta}(\\alpha,\\beta),\\ \\alpha,\\beta>0',
+      density: 'f(x)=\\tfrac{x^{\\alpha-1}(1-x)^{\\beta-1}}{B(\\alpha,\\beta)},\\quad 0<x<1',
       mean: '\\tfrac{\\alpha}{\\alpha+\\beta}',
       variance: '\\tfrac{\\alpha\\beta}{(\\alpha+\\beta)^2(\\alpha+\\beta+1)}',
       mle: [
@@ -197,6 +207,8 @@ export const continuousDistributions = {
     range: (p) => [0, p.k + 4.5 * Math.sqrt(2 * p.k)],
     sample: (p, rng) => 2 * sampleGammaShape(p.k / 2, rng),
     formulas: {
+      model: 'X \\sim \\chi^2_k,\\ k\\in\\{1,2,\\dots\\}',
+      density: 'f(x)=\\tfrac{1}{2^{k/2}\\Gamma(k/2)}\\,x^{k/2-1}e^{-x/2},\\quad x>0',
       mean: 'k',
       variance: '2k',
       mle: ['\\psi(\\hat k/2) = \\overline{\\ln X} - \\ln 2'],
@@ -233,6 +245,8 @@ export const continuousDistributions = {
     sample: (p, rng) =>
       sampleStdNormal(rng) / Math.sqrt((2 * sampleGammaShape(p.nu / 2, rng)) / p.nu),
     formulas: {
+      model: 'X \\sim t_\\nu,\\ \\nu>0',
+      density: 'f(x)=\\tfrac{\\Gamma\\left(\\frac{\\nu+1}{2}\\right)}{\\sqrt{\\nu\\pi}\\,\\Gamma\\left(\\frac{\\nu}{2}\\right)}\\left(1+\\tfrac{x^2}{\\nu}\\right)^{-\\frac{\\nu+1}{2}},\\quad x\\in\\mathbb{R}',
       mean: '0 \\quad (\\nu>1)',
       variance: '\\tfrac{\\nu}{\\nu-2} \\quad (\\nu>2)',
       mle: [],
@@ -269,6 +283,8 @@ export const continuousDistributions = {
     range: (p) => [0, Math.exp(p.mu + 3.2 * p.sigma)],
     sample: (p, rng) => Math.exp(p.mu + p.sigma * sampleStdNormal(rng)),
     formulas: {
+      model: '\\ln X \\sim N(\\mu,\\sigma^2),\\ \\sigma>0',
+      density: 'f(x)=\\tfrac{1}{x\\sigma\\sqrt{2\\pi}}\\,e^{-(\\ln x-\\mu)^2/(2\\sigma^2)},\\quad x>0',
       mean: 'e^{\\mu+\\sigma^2/2}',
       variance: '(e^{\\sigma^2}-1)\\,e^{2\\mu+\\sigma^2}',
       mle: ['\\hat\\mu = \\overline{\\ln X}', '\\hat\\sigma^2 = \\tfrac1n\\sum(\\ln X_i - \\hat\\mu)^2'],
@@ -302,6 +318,8 @@ export const continuousDistributions = {
       return p.mu - p.b * Math.sign(u) * Math.log(1 - 2 * Math.abs(u))
     },
     formulas: {
+      model: 'X \\sim \\mathrm{Laplace}(\\mu,b),\\ b>0',
+      density: 'f(x)=\\tfrac{1}{2b}\\,e^{-|x-\\mu|/b},\\quad x\\in\\mathbb{R}',
       mean: '\\mu',
       variance: '2b^2',
       mle: ['\\hat\\mu = \\operatorname{med}(X_1,\\dots,X_n)', '\\hat b = \\tfrac1n\\sum_{i=1}^n\\lvert X_i - \\hat\\mu\\rvert'],
@@ -329,6 +347,8 @@ export const continuousDistributions = {
     range: (p) => [0, 4.2 * p.sigma],
     sample: (p, rng) => p.sigma * Math.sqrt(-2 * Math.log(1 - rng())),
     formulas: {
+      model: 'X \\sim \\mathrm{Rayleigh}(\\sigma),\\ \\sigma>0',
+      density: 'f(x)=\\tfrac{x}{\\sigma^2}\\,e^{-x^2/(2\\sigma^2)},\\quad x\\ge 0',
       mean: '\\sigma\\sqrt{\\pi/2}',
       variance: '\\bigl(2-\\tfrac{\\pi}{2}\\bigr)\\sigma^2',
       mle: ['\\hat\\sigma = \\sqrt{\\tfrac{1}{2n}\\sum_{i=1}^n X_i^2}'],
