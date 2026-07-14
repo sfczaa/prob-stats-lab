@@ -13,6 +13,7 @@ import ChartTooltip from './ChartTooltip.jsx'
 import DistPicker from './DistPicker.jsx'
 import ParamSlider from './ParamSlider.jsx'
 import StatTile from './StatTile.jsx'
+import TeX from './TeX.jsx'
 
 const N_BINS = 41
 const RUN_DURATION_MS = 4000 // the animation always completes in about this long
@@ -218,18 +219,26 @@ export default function CLTSimulator() {
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <StatTile
             label="Population"
-            value={`μ = ${fmtNum(setup.mu)}`}
-            caption={`σ = ${fmtNum(setup.sd)}`}
+            value={<TeX tex={`\\mu = ${fmtNum(setup.mu)}`} />}
+            caption={<TeX tex={`\\sigma = ${fmtNum(setup.sd)}`} />}
           />
           <StatTile
-            label="Theory for X̄"
-            value={`μ = ${fmtNum(setup.mu)}`}
-            caption={`σ/√n = ${fmtNum(setup.se)}`}
+            label="Theory for the mean"
+            value={<TeX tex={`E[\\bar X] = ${fmtNum(setup.mu)}`} />}
+            caption={<TeX tex={`\\sigma/\\sqrt{n} = ${fmtNum(setup.se)}`} />}
           />
           <StatTile
-            label="Observed X̄"
-            value={`μ̂ = ${fmtNum(empirical.mean)}`}
-            caption={`sd = ${fmtNum(empirical.sd)}`}
+            label="Observed means"
+            value={
+              Number.isFinite(empirical.mean)
+                ? <TeX tex={`\\hat\\mu = ${fmtNum(empirical.mean)}`} />
+                : '—'
+            }
+            caption={
+              Number.isFinite(empirical.sd)
+                ? <TeX tex={`\\mathrm{sd} = ${fmtNum(empirical.sd)}`} />
+                : ' '
+            }
           />
           <StatTile
             label="Samples drawn"
@@ -296,7 +305,7 @@ export default function CLTSimulator() {
 
         <p className="border-l-2 border-baseline pl-3 font-display text-[14px] italic leading-snug text-ink2">
           The Central Limit Theorem: whatever shape the population has, the
-          distribution of the sample mean X̄ approaches N(μ, σ²/n) as n grows.
+          distribution of the sample mean approaches N(μ, σ²/n) as n grows.
           Try a skewed population (Exponential) with n = 1, then slide n upward.
         </p>
       </div>

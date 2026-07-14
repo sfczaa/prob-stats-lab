@@ -74,7 +74,7 @@ export default function DistributionLab() {
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <span className="font-mono text-sm text-ink">{dist.notation(params)}</span>
           <span className="text-xs text-muted">
-            drag the sliders — everything updates live
+            drag the sliders — MLE &amp; MME formulas are in the panel below the charts
           </span>
         </div>
 
