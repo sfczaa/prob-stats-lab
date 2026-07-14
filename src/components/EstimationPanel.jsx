@@ -27,6 +27,12 @@ export default function EstimationPanel({ dist }) {
           for an iid sample <TeX tex="X_1,\dots,X_n" />
         </span>
       </div>
+      {(f.model || f.density) && (
+        <div className="mt-3 flex flex-wrap items-baseline gap-x-10 gap-y-1.5 border-b border-hairline pb-3 text-[15px] text-ink">
+          {f.model && <TeX tex={f.model} />}
+          {f.density && <TeX tex={f.density} />}
+        </div>
+      )}
       <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-3">
         <Column
           title="Moments"

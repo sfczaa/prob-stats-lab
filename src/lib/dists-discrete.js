@@ -21,6 +21,8 @@ export const discreteDistributions = {
     range: () => [0, 1],
     sample: (p, rng) => (rng() < p.p ? 1 : 0),
     formulas: {
+      model: 'X \\sim \\mathrm{Ber}(p),\\ 0<p<1',
+      density: 'P(X=k)=p^k(1-p)^{1-k},\\quad k\\in\\{0,1\\}',
       mean: 'p',
       variance: 'p(1-p)',
       mle: ['\\hat p = \\bar X'],
@@ -60,6 +62,8 @@ export const discreteDistributions = {
       return s
     },
     formulas: {
+      model: 'X \\sim \\mathrm{Bin}(m,p),\\ 0<p<1',
+      density: 'P(X=k)=\\binom{m}{k}p^k(1-p)^{m-k},\\quad k=0,1,\\dots,m',
       mean: 'mp',
       variance: 'mp(1-p)',
       mle: ['\\hat p = \\bar X / m'],
@@ -93,6 +97,8 @@ export const discreteDistributions = {
     },
     sample: (p, rng) => Math.floor(Math.log(1 - rng()) / Math.log(1 - p.p)) + 1,
     formulas: {
+      model: 'X \\sim \\mathrm{Geom}(p),\\ 0<p<1\\ \\text{(trials until 1st success)}',
+      density: 'P(X=k)=p(1-p)^{k-1},\\quad k=1,2,\\dots',
       mean: '1/p',
       variance: '\\tfrac{1-p}{p^2}',
       mle: ['\\hat p = 1/\\bar X'],
@@ -136,6 +142,8 @@ export const discreteDistributions = {
       return total
     },
     formulas: {
+      model: 'X \\sim \\mathrm{NB}(r,p)\\ \\text{(trials until $r$-th success)}',
+      density: 'P(X=k)=\\binom{k-1}{r-1}p^{r}(1-p)^{k-r},\\quad k=r,r+1,\\dots',
       mean: 'r/p',
       variance: '\\tfrac{r(1-p)}{p^2}',
       mle: ['\\hat p = r/\\bar X'],
@@ -178,6 +186,8 @@ export const discreteDistributions = {
       return k
     },
     formulas: {
+      model: 'X \\sim \\mathrm{Poisson}(\\lambda),\\ \\lambda>0',
+      density: 'P(X=k)=\\tfrac{\\lambda^{k}e^{-\\lambda}}{k!},\\quad k=0,1,2,\\dots',
       mean: '\\lambda',
       variance: '\\lambda',
       mle: ['\\hat\\lambda = \\bar X'],
@@ -233,6 +243,8 @@ export const discreteDistributions = {
       return s
     },
     formulas: {
+      model: 'X \\sim \\mathrm{HG}(N,K,m)\\ \\text{($K$ successes in $N$; draw $m$ w/o replacement)}',
+      density: 'P(X=k)=\\tfrac{\\binom{K}{k}\\binom{N-K}{m-k}}{\\binom{N}{m}},\\quad \\max(0,m{+}K{-}N)\\le k\\le \\min(m,K)',
       mean: 'm\\tfrac{K}{N}',
       variance: 'm\\tfrac{K}{N}\\Bigl(1-\\tfrac{K}{N}\\Bigr)\\tfrac{N-m}{N-1}',
       mle: [],
@@ -274,6 +286,8 @@ export const discreteDistributions = {
     range: (p) => [p.a, p.b],
     sample: (p, rng) => p.a + Math.floor(rng() * (p.b - p.a + 1)),
     formulas: {
+      model: 'X \\sim U\\{a,\\dots,b\\},\\ a\\le b\\ \\text{integers}',
+      density: 'P(X=k)=\\tfrac{1}{b-a+1},\\quad k=a,a{+}1,\\dots,b',
       mean: '\\tfrac{a+b}{2}',
       variance: '\\tfrac{(b-a+1)^2-1}{12}',
       mle: ['\\hat a = X_{(1)}', '\\hat b = X_{(n)}'],
