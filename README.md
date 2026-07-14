@@ -6,7 +6,7 @@ read off the symbolic moments and estimators (MLE / method of moments) for
 every distribution, watch the Central Limit Theorem emerge through animated
 sampling, and explore the bivariate normal's geometry.
 
-**Live demo:** _add your GitHub Pages URL here after deploying (see below)_
+**Live demo:** <https://sfczaa.github.io/prob-stats-lab/>
 
 ## What's inside
 
