@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Credentials - never commit
+.env
+.env.*
+*.pem
+*.key
+*.p12
+credentials.json
+service_account*.json
+
+# Local assistant tooling state
+.claude/
+.cursor/
+.aider*
+CLAUDE.md
+AGENTS.md
