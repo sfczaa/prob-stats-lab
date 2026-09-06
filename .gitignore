@@ -32,9 +32,3 @@ dist-ssr
 credentials.json
 service_account*.json
 
-# Local assistant tooling state
-.claude/
-.cursor/
-.aider*
-CLAUDE.md
-AGENTS.md
