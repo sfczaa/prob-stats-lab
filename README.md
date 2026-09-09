@@ -59,7 +59,7 @@ Tips:
 ## Running locally
 
 ```bash
-npm install
+npm ci
 npm run dev      # start the dev server
 npm test         # run the math sanity tests
 npm run build    # production build into dist/
@@ -84,7 +84,7 @@ that tests, builds, and publishes on every push to `main`.
 4. Wait for the workflow to finish (Actions tab). Your site is live at
    `https://<you>.github.io/<repo>/`.
 
-Every later push to `main` redeploys automatically. Zero servers, zero cost.
+Every later push to `main` redeploys automatically through GitHub Actions.
 
 ## How the math works
 
@@ -112,7 +112,7 @@ is implemented from scratch:
 Estimator formulas (MLE and MME) are stored per distribution as KaTeX strings
 and rendered in the Moments & estimators panel.
 
-### Verified, not just implemented
+### Math tests
 
 `npm test` runs **90 sanity tests** (Vitest) over the math core:
 
@@ -137,7 +137,11 @@ and rendered in the Moments & estimators panel.
 - **KaTeX** — math rendering
 - **Tailwind CSS v4** — styling
 - **Vitest** — math sanity tests
-- Typography: Fraunces + IBM Plex Sans/Mono
+- Typography: Fraunces + IBM Plex Sans/Mono, bundled locally through Fontsource
+
+The app runs calculations in the browser and does not add analytics or send
+simulation inputs to an application server. Fonts load from the same site;
+GitHub Pages still handles ordinary hosting requests.
 
 ## Project structure
 
