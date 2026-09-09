@@ -59,7 +59,7 @@ Tips:
 ## Running locally
 
 ```bash
-npm install
+npm ci
 npm run dev      # start the dev server
 npm test         # run the math sanity tests
 npm run build    # production build into dist/
@@ -67,24 +67,9 @@ npm run build    # production build into dist/
 
 ## Deploying to GitHub Pages
 
-The repo ships with a ready-to-use workflow (`.github/workflows/deploy.yml`)
-that tests, builds, and publishes on every push to `main`.
-
-1. Create an empty GitHub repository (any name — the build uses relative
-   paths, so no base-path configuration is needed).
-2. Push this project:
-
-   ```bash
-   git remote add origin https://github.com/<you>/<repo>.git
-   git push -u origin main
-   ```
-
-3. In the repository settings, go to **Settings → Pages** and set
-   **Source: GitHub Actions**.
-4. Wait for the workflow to finish (Actions tab). Your site is live at
-   `https://<you>.github.io/<repo>/`.
-
-Every later push to `main` redeploys automatically. Zero servers, zero cost.
+`.github/workflows/deploy.yml` tests, builds, and publishes pushes to `main`.
+GitHub Pages uses **GitHub Actions** as its source. The build uses relative
+paths and requires no repository-specific base path.
 
 ## How the math works
 
@@ -112,7 +97,7 @@ is implemented from scratch:
 Estimator formulas (MLE and MME) are stored per distribution as KaTeX strings
 and rendered in the Moments & estimators panel.
 
-### Verified, not just implemented
+### Math tests
 
 `npm test` runs **90 sanity tests** (Vitest) over the math core:
 
@@ -137,7 +122,11 @@ and rendered in the Moments & estimators panel.
 - **KaTeX** — math rendering
 - **Tailwind CSS v4** — styling
 - **Vitest** — math sanity tests
-- Typography: Fraunces + IBM Plex Sans/Mono
+- Typography: Fraunces + IBM Plex Sans/Mono, bundled locally through Fontsource
+
+The app runs calculations in the browser and does not add analytics or send
+simulation inputs to an application server. Fonts load from the same site;
+GitHub Pages still handles ordinary hosting requests.
 
 ## Project structure
 
