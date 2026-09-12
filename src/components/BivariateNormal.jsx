@@ -43,7 +43,7 @@ export default function BivariateNormal() {
   const slope = (rho * s2) / s1
   const condSd = s2 * Math.sqrt(1 - rho * rho)
 
-  // Equal scale on both axes so ellipse geometry reads honestly
+  // Equal axis scales preserve ellipse geometry.
   const half = 4.2 * Math.max(s1, s2)
   const scale = PLOT / (2 * half)
   const X = (x) => ML + (x - (mu1 - half)) * scale

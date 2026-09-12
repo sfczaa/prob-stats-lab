@@ -1,6 +1,5 @@
 import { fmtNum } from '../lib/format.js'
 
-/** Labeled range slider with a live mono readout. */
 export default function ParamSlider({ def, value, onChange, disabled = false }) {
   return (
     <label className="block">

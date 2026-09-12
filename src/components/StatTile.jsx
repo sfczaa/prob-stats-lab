@@ -1,4 +1,3 @@
-/** Stat tile: sentence-case label, semibold value, optional formula caption. */
 export default function StatTile({ label, value, caption }) {
   return (
     <div className="border border-hairline bg-surface px-4 py-3">

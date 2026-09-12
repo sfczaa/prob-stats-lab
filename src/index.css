@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Paper & ink (editorial palette; chart colors from the validated set) */
+  /* Theme colors */
   --color-paper: #f9f9f7;
   --color-surface: #fcfcfb;
   --color-ink: #0b0b0b;

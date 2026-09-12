@@ -81,7 +81,7 @@ export default function CLTSimulator() {
     setRunning(true)
   }
 
-  // "?autorun" starts a simulation on load — handy for shared links and demos
+  // "?autorun" starts a simulation on load.
   useEffect(() => {
     if (new URLSearchParams(window.location.search).has('autorun')) run()
     // eslint-disable-next-line react-hooks/exhaustive-deps

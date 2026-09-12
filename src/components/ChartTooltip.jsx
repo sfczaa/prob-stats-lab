@@ -1,6 +1,5 @@
 import { fmtNum } from '../lib/format.js'
 
-/** Recharts custom tooltip: hairline card, mono values, text-token colors. */
 export default function ChartTooltip({ active, payload, label, xLabel = 'x' }) {
   if (!active || !payload || payload.length === 0) return null
   return (

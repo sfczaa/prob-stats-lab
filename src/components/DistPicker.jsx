@@ -5,7 +5,6 @@ const GROUPS = [
   { label: 'Discrete', kind: 'discrete' },
 ]
 
-/** Distribution selector: grouped editorial list, left rule on the active row. */
 export default function DistPicker({ value, onChange, disabled = false }) {
   return (
     <div role="radiogroup" aria-label="Distribution" className="flex flex-col gap-3">

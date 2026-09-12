@@ -1,4 +1,3 @@
-/** A chart panel: serif title, muted subtitle, fixed-height plot area. */
 export default function ChartCard({ title, subtitle, children, height = 'h-64' }) {
   return (
     <section className="border border-hairline bg-surface p-4">
