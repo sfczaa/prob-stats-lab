@@ -16,7 +16,7 @@ import StatTile from './StatTile.jsx'
 import TeX from './TeX.jsx'
 
 const N_BINS = 41
-const RUN_DURATION_MS = 4000 // the animation always completes in about this long
+const RUN_DURATION_MS = 4000 // target animation duration
 const TOTAL_OPTIONS = [1000, 5000, 20000]
 const N_DEF = { key: 'n', label: 'Sample size n', min: 1, max: 100, step: 1, default: 30 }
 
@@ -93,7 +93,7 @@ export default function CLTSimulator() {
     const step = () => {
       const sim = simRef.current
       if (!sim) return
-      // Pace by wall clock, not frame count, so the run takes ~RUN_DURATION_MS
+      // Pace by wall clock, not frame count, targeting RUN_DURATION_MS
       // even when the browser throttles animation frames. The per-frame floor
       // guarantees completion within ~240 frames on clocks that stand still
       // (e.g. headless virtual time).

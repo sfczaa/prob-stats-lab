@@ -20,7 +20,7 @@ Explore **17 distributions** with live parameter sliders:
   Hypergeometric, Discrete Uniform
 
 The density/mass chart, the CDF chart, and the moment tiles all update as you
-drag. Below the charts, a **Moments & estimators** panel shows — in proper
+drag. Below the charts, a **Moments & estimators** panel shows — in
 KaTeX-rendered math — the symbolic mean and variance plus the **maximum
 likelihood** and **method-of-moments** estimators for an iid sample, including
 the score equations (with a note) where no closed form exists (Gamma/Beta

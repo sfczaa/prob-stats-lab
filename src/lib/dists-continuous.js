@@ -290,7 +290,7 @@ export const continuousDistributions = {
       mle: ['\\hat\\mu = \\overline{\\ln X}', '\\hat\\sigma^2 = \\tfrac1n\\sum(\\ln X_i - \\hat\\mu)^2'],
       mme: ['\\hat\\sigma^2 = \\ln\\bigl(1 + S_n^2/\\bar X^2\\bigr)', '\\hat\\mu = \\ln\\bar X - \\hat\\sigma^2/2'],
     },
-    // Heavy right tail: numeric second moment needs an absurdly wide range;
+    // Heavy right tail: numeric second moment needs a very wide range;
     // the sampler test still verifies the variance.
     testOverrides: { skipNumericVariance: true },
   },
