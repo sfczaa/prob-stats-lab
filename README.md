@@ -110,9 +110,9 @@ and rendered in the Moments & estimators panel.
   catches parameterization mistakes (rate vs. scale) by construction.
   (The heavy-tailed t and Lognormal skip the slow-converging numeric second
   moment — their variance is verified by the sampler test instead.)
-- **Sampler checks** — 40,000 seeded draws per distribution must reproduce the
-  theoretical mean and variance within tight tolerances, so the CLT simulator
-  is fed by verified samplers.
+- **Sampler checks** — 40,000 seeded draws per distribution, at its default
+  parameters, must reproduce the theoretical mean within 5 standard errors and
+  the variance within 8%.
 
 ## Tech stack
 
