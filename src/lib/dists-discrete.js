@@ -1,4 +1,4 @@
-// Discrete distributions — same contract as dists-continuous.js, with pmf
+// Discrete distributions use the same contract as dists-continuous.js, with pmf
 // in place of pdf. Supports are integer ranges given by range().
 
 import { logGamma, logChoose, regularizedGammaP, regularizedBeta } from './special.js'
@@ -9,7 +9,7 @@ export const discreteDistributions = {
     id: 'bernoulli',
     name: 'Bernoulli',
     kind: 'discrete',
-    tagline: 'A single yes/no trial — the atom of discrete probability.',
+    tagline: 'A single yes/no trial, the basic unit of discrete probability.',
     params: [
       { key: 'p', label: 'Success prob. p', min: 0.01, max: 0.99, step: 0.01, default: 0.3 },
     ],
@@ -76,7 +76,7 @@ export const discreteDistributions = {
     id: 'geometric',
     name: 'Geometric',
     kind: 'discrete',
-    tagline: 'Trials until the first success — memoryless in discrete time.',
+    tagline: 'Trials until the first success; memoryless in discrete time.',
     params: [
       { key: 'p', label: 'Success prob. p', min: 0.05, max: 0.95, step: 0.01, default: 0.3 },
     ],
@@ -110,7 +110,7 @@ export const discreteDistributions = {
     id: 'negbinomial',
     name: 'Negative Binomial',
     kind: 'discrete',
-    tagline: 'Trials until the r-th success — a sum of r Geometrics.',
+    tagline: 'Trials until the r-th success, equivalent to a sum of r Geometrics.',
     params: [
       { key: 'r', label: 'Successes r', min: 1, max: 10, step: 1, default: 3 },
       { key: 'p', label: 'Success prob. p', min: 0.1, max: 0.95, step: 0.01, default: 0.5 },
@@ -257,7 +257,7 @@ export const discreteDistributions = {
     id: 'duniform',
     name: 'Discrete Uniform',
     kind: 'discrete',
-    tagline: 'Equal mass on the integers a,…,b — a fair die is U{1, 6}.',
+    tagline: 'Equal mass on the integers a, ..., b; a fair die is U{1, 6}.',
     params: [
       { key: 'a', label: 'Lower a', min: -10, max: 20, step: 1, default: 1 },
       { key: 'b', label: 'Upper b', min: -10, max: 20, step: 1, default: 6 },

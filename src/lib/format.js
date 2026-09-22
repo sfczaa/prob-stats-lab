@@ -17,9 +17,9 @@ export function niceTicks(lo, hi, maxTicks = 7) {
   return ticks
 }
 
-/** Compact display of a number: 4 significant digits, em dash for non-finite. */
+/** Compact display of a number: 4 significant digits, hyphen for non-finite. */
 export function fmtNum(v, digits = 4) {
-  if (!Number.isFinite(v)) return '—'
+  if (!Number.isFinite(v)) return '-'
   if (v === 0) return '0'
   const a = Math.abs(v)
   if (a >= 100000 || a < 0.001) return v.toExponential(2)

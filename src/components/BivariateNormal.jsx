@@ -15,7 +15,7 @@ const PARAMS = [
 ]
 
 // Mahalanobis radii of the plotted contours, outermost first,
-// with strokes from the sequential blue ramp (light → dark inward).
+// with strokes from the sequential blue ramp, light to dark inward.
 const RINGS = [
   { c: 3, stroke: '#9ec5f4' },
   { c: 2.25, stroke: '#6da7ec' },
@@ -78,8 +78,8 @@ export default function BivariateNormal() {
           ))}
         </div>
         <p className="border-l-2 border-baseline pl-3 font-display text-[14px] italic leading-snug text-ink2">
-          Slide ρ toward ±1 and watch the density collapse onto a line — and the
-          conditional mean E[Y | X = x] tilt with it.
+          Slide ρ toward ±1 and watch the density collapse onto a line as the
+          conditional mean E[Y | X = x] tilts with it.
         </p>
       </aside>
 
@@ -241,8 +241,8 @@ export default function BivariateNormal() {
               />
             </div>
             <p className="mt-2 text-xs leading-snug text-muted">
-              The conditional mean is the red line above — linear regression falls
-              straight out of the bivariate normal. X and Y are independent iff ρ = 0.
+              The conditional mean is the red line above. For a bivariate normal,
+              it is linear. X and Y are independent iff ρ = 0.
             </p>
           </section>
         </div>

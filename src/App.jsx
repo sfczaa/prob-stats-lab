@@ -62,8 +62,8 @@ export default function App() {
 
       <footer className="mt-12 border-t border-hairline pt-4 text-xs text-muted">
         A pure front-end teaching tool. All distribution math (PDF/PMF, CDF,
-        moments, samplers) is implemented from scratch and verified with sanity
-        tests — see the README.
+        moments, samplers) is implemented from scratch and covered by tests.
+        See the README for details.
       </footer>
     </div>
   )

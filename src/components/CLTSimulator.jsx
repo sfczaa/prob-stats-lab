@@ -201,7 +201,7 @@ export default function CLTSimulator() {
               disabled={running}
               className="flex-1 border border-ink bg-ink px-3 py-2 text-sm font-medium text-paper transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {running ? 'Sampling…' : drawn > 0 ? 'Run again' : 'Run simulation'}
+              {running ? 'Sampling...' : drawn > 0 ? 'Run again' : 'Run simulation'}
             </button>
             <button
               type="button"
@@ -232,7 +232,7 @@ export default function CLTSimulator() {
             value={
               Number.isFinite(empirical.mean)
                 ? <TeX tex={`\\hat\\mu = ${fmtNum(empirical.mean)}`} />
-                : '—'
+                : '-'
             }
             caption={
               Number.isFinite(empirical.sd)

@@ -1,10 +1,10 @@
 // Continuous distributions. Each entry provides:
-//   params      — slider definitions with legal ranges (+ optional clamp)
-//   pdf, cdf    — density and cumulative distribution
-//   mean/variance — closed-form moments
-//   range       — sensible x-range for plotting given current params
-//   sample      — one random draw (for the CLT simulator)
-//   formulas    — KaTeX strings: moments, MLE and MME for an iid sample
+//   params: slider definitions with legal ranges (+ optional clamp)
+//   pdf, cdf: density and cumulative distribution
+//   mean/variance: closed-form moments
+//   range: sensible x-range for plotting given current params
+//   sample: one random draw (for the CLT simulator)
+//   formulas: KaTeX strings for moments, MLE, and MME for an iid sample
 //
 // Convention in formulas: S_n^2 = (1/n)Σ(X_i − X̄)², ψ = digamma.
 
@@ -17,7 +17,7 @@ export const continuousDistributions = {
     id: 'normal',
     name: 'Normal',
     kind: 'continuous',
-    tagline: 'The bell curve — symmetric, fully described by its mean and spread.',
+    tagline: 'The bell curve: symmetric and fully described by its mean and spread.',
     params: [
       { key: 'mu', label: 'Mean μ', min: -10, max: 10, step: 0.1, default: 0 },
       { key: 'sigma', label: 'Std. dev. σ', min: 0.2, max: 5, step: 0.1, default: 1 },
@@ -46,7 +46,7 @@ export const continuousDistributions = {
     id: 'uniform',
     name: 'Uniform',
     kind: 'continuous',
-    tagline: 'Equal density on [a, b] — the MLE sits on the sample extremes.',
+    tagline: 'Equal density on [a, b]; the MLE uses the sample extremes.',
     params: [
       { key: 'a', label: 'Lower a', min: -10, max: 10, step: 0.1, default: 0 },
       { key: 'b', label: 'Upper b', min: -10, max: 10, step: 0.1, default: 1 },
@@ -74,7 +74,7 @@ export const continuousDistributions = {
       mean: '\\tfrac{a+b}{2}',
       variance: '\\tfrac{(b-a)^2}{12}',
       mle: ['\\hat a = X_{(1)}', '\\hat b = X_{(n)}'],
-      mleNote: 'The MLE lies on the boundary of the support (order statistics) — the usual regularity conditions fail here.',
+      mleNote: 'The MLE lies on the boundary of the support (order statistics), where the usual regularity conditions fail.',
       mme: ['\\hat a = \\bar X - \\sqrt{3}\\,S_n', '\\hat b = \\bar X + \\sqrt{3}\\,S_n'],
     },
   },
@@ -83,7 +83,7 @@ export const continuousDistributions = {
     id: 'exponential',
     name: 'Exponential',
     kind: 'continuous',
-    tagline: 'Waiting time until the next event — memoryless and right-skewed.',
+    tagline: 'Waiting time until the next event; memoryless and right-skewed.',
     params: [
       { key: 'lambda', label: 'Rate λ', min: 0.2, max: 5, step: 0.1, default: 1 },
     ],
@@ -135,7 +135,7 @@ export const continuousDistributions = {
       mean: '\\alpha/\\lambda',
       variance: '\\alpha/\\lambda^2',
       mle: ['\\ln\\hat\\alpha - \\psi(\\hat\\alpha) = \\ln\\bar X - \\overline{\\ln X}', '\\hat\\lambda = \\hat\\alpha/\\bar X'],
-      mleNote: 'No closed form for α̂ — solve the first equation numerically.',
+      mleNote: 'No closed form for α̂; solve the first equation numerically.',
       mme: ['\\hat\\alpha = \\bar X^2 / S_n^2', '\\hat\\lambda = \\bar X / S_n^2'],
     },
   },
@@ -144,7 +144,7 @@ export const continuousDistributions = {
     id: 'beta',
     name: 'Beta',
     kind: 'continuous',
-    tagline: 'A flexible distribution on [0, 1] — the workhorse for proportions.',
+    tagline: 'A flexible distribution on [0, 1], commonly used for proportions.',
     params: [
       { key: 'alpha', label: 'Shape α', min: 0.5, max: 10, step: 0.1, default: 2 },
       { key: 'beta', label: 'Shape β', min: 0.5, max: 10, step: 0.1, default: 5 },
@@ -178,7 +178,7 @@ export const continuousDistributions = {
         '\\psi(\\hat\\alpha)-\\psi(\\hat\\alpha+\\hat\\beta) = \\overline{\\ln X}',
         '\\psi(\\hat\\beta)-\\psi(\\hat\\alpha+\\hat\\beta) = \\overline{\\ln(1-X)}',
       ],
-      mleNote: 'No closed form — solve the score equations numerically.',
+      mleNote: 'No closed form; solve the score equations numerically.',
       mme: [
         '\\hat\\alpha = \\bar X\\Bigl(\\tfrac{\\bar X(1-\\bar X)}{S_n^2}-1\\Bigr)',
         '\\hat\\beta = (1-\\bar X)\\Bigl(\\tfrac{\\bar X(1-\\bar X)}{S_n^2}-1\\Bigr)',
@@ -190,7 +190,7 @@ export const continuousDistributions = {
     id: 'chisq',
     name: 'Chi-square',
     kind: 'continuous',
-    tagline: 'Sum of k squared standard normals — the backbone of variance tests.',
+    tagline: 'A sum of k squared standard normals, used in variance tests.',
     params: [
       { key: 'k', label: 'Degrees of freedom k', min: 1, max: 30, step: 1, default: 4 },
     ],
@@ -212,7 +212,7 @@ export const continuousDistributions = {
       mean: 'k',
       variance: '2k',
       mle: ['\\psi(\\hat k/2) = \\overline{\\ln X} - \\ln 2'],
-      mleNote: 'No closed form — solve numerically.',
+      mleNote: 'No closed form; solve numerically.',
       mme: ['\\hat k = \\bar X'],
     },
   },
@@ -250,7 +250,7 @@ export const continuousDistributions = {
       mean: '0 \\quad (\\nu>1)',
       variance: '\\tfrac{\\nu}{\\nu-2} \\quad (\\nu>2)',
       mle: [],
-      mleNote: 'No closed form — maximize the log-likelihood over ν numerically.',
+      mleNote: 'No closed form; maximize the log-likelihood over ν numerically.',
       mme: ['\\hat\\nu = \\tfrac{2\\,S_n^2}{S_n^2-1}'],
       mmeNote: 'Valid when S_n² > 1 (otherwise the moment equation has no solution).',
     },
@@ -263,7 +263,7 @@ export const continuousDistributions = {
     id: 'lognormal',
     name: 'Lognormal',
     kind: 'continuous',
-    tagline: 'ln X is Normal — multiplicative processes, incomes, survival times.',
+    tagline: 'ln X is Normal; examples include multiplicative processes, incomes, and survival times.',
     params: [
       { key: 'mu', label: 'Log-mean μ', min: -1, max: 2, step: 0.1, default: 0 },
       { key: 'sigma', label: 'Log-sd σ', min: 0.1, max: 1.2, step: 0.05, default: 0.5 },
@@ -299,7 +299,7 @@ export const continuousDistributions = {
     id: 'laplace',
     name: 'Laplace',
     kind: 'continuous',
-    tagline: 'Double exponential — sharp peak, heavy tails; the MLE of location is the median.',
+    tagline: 'Double exponential with a sharp peak and heavy tails; the MLE of location is the median.',
     params: [
       { key: 'mu', label: 'Location μ', min: -5, max: 5, step: 0.1, default: 0 },
       { key: 'b', label: 'Scale b', min: 0.2, max: 3, step: 0.1, default: 1 },
@@ -331,7 +331,7 @@ export const continuousDistributions = {
     id: 'rayleigh',
     name: 'Rayleigh',
     kind: 'continuous',
-    tagline: 'Norm of a 2-D Gaussian vector — signal amplitudes, wind speeds.',
+    tagline: 'Norm of a 2-D Gaussian vector; examples include signal amplitudes and wind speeds.',
     params: [
       { key: 'sigma', label: 'Scale σ', min: 0.2, max: 5, step: 0.1, default: 1 },
     ],

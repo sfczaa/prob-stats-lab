@@ -13,7 +13,7 @@ export function mulberry32(seed) {
   }
 }
 
-/** One standard normal draw (Box–Muller, polar-free form). */
+/** One standard normal draw (Box-Muller, polar-free form). */
 export function sampleStdNormal(rng) {
   let u = 0
   while (u === 0) u = rng() // avoid log(0)
@@ -21,7 +21,7 @@ export function sampleStdNormal(rng) {
   return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
 }
 
-/** One Gamma(shape, rate=1) draw via Marsaglia–Tsang; shape > 0. */
+/** One Gamma(shape, rate=1) draw via Marsaglia-Tsang; shape > 0. */
 export function sampleGammaShape(shape, rng) {
   if (shape < 1) {
     // Boost trick: Gamma(a) = Gamma(a+1) · U^(1/a)

@@ -6,23 +6,23 @@ read off the symbolic moments and estimators (MLE / method of moments) for
 every distribution, watch the Central Limit Theorem emerge through animated
 sampling, and explore the bivariate normal's geometry.
 
-**Live demo:** <https://sfczaa.github.io/prob-stats-lab/>
+Live demo: <https://sfczaa.github.io/prob-stats-lab/>
 
 ## What's inside
 
 ### I. Distribution Lab
 
-Explore **17 distributions** with live parameter sliders:
+Explore 17 distributions with live parameter sliders:
 
-- *Continuous:* Normal, Uniform, Exponential, Gamma, Beta, Chi-square,
+- Continuous: Normal, Uniform, Exponential, Gamma, Beta, Chi-square,
   Student's t, Lognormal, Laplace, Rayleigh
-- *Discrete:* Bernoulli, Binomial, Geometric, Negative Binomial, Poisson,
+- Discrete: Bernoulli, Binomial, Geometric, Negative Binomial, Poisson,
   Hypergeometric, Discrete Uniform
 
 The density/mass chart, the CDF chart, and the moment tiles all update as you
-drag. Below the charts, a **Moments & estimators** panel shows — in
-KaTeX-rendered math — the symbolic mean and variance plus the **maximum
-likelihood** and **method-of-moments** estimators for an iid sample, including
+drag. Below the charts, a Moments & estimators panel shows the symbolic mean
+and variance in KaTeX-rendered math, plus the maximum likelihood and
+method-of-moments estimators for an iid sample, including
 the score equations (with a note) where no closed form exists (Gamma/Beta
 shapes, t, Chi-square).
 
@@ -44,8 +44,8 @@ prediction with the observed mean/sd of the simulated sample means.
 Density contour ellipses that tilt and stretch as you drag μ₁, μ₂, σ₁, σ₂ and
 ρ, with the conditional mean E[Y | X = x] drawn as a regression line. Formula
 cards show the joint density, the covariance matrix (symbolic and numeric),
-the marginals, the conditional distribution, and the MLE of (μ, Σ, ρ) — the
-MLE of ρ being exactly the sample correlation.
+the marginals, the conditional distribution, and the MLE of (μ, Σ, ρ). The
+MLE of ρ is the sample correlation.
 
 ![Bivariate Normal](docs/bivariate-normal.png)
 
@@ -68,12 +68,12 @@ npm run build    # production build into dist/
 ## Deploying to GitHub Pages
 
 `.github/workflows/deploy.yml` tests, builds, and publishes pushes to `main`.
-GitHub Pages uses **GitHub Actions** as its source. The build uses relative
+GitHub Pages uses GitHub Actions as its source. The build uses relative
 paths and requires no repository-specific base path.
 
 ## How the math works
 
-No statistics library is used — all distribution math lives in `src/lib/` and
+No statistics library is used. All distribution math lives in `src/lib/` and
 is implemented from scratch:
 
 | Piece | Method |
@@ -88,8 +88,8 @@ is implemented from scratch:
 | Chi-square CDF | `P(k/2, x/2)` |
 | Student's t CDF | via `I_{ν/(ν+x²)}(ν/2, 1/2)` |
 | Hypergeometric CDF | log-binomial-coefficient summation |
-| Normal sampling | Box–Muller |
-| Gamma / Chi-square / Beta / t sampling | Marsaglia–Tsang (+ `U^{1/a}` boost for shape < 1) |
+| Normal sampling | Box-Muller |
+| Gamma / Chi-square / Beta / t sampling | Marsaglia-Tsang (+ `U^{1/a}` boost for shape < 1) |
 | Poisson sampling | Knuth's product method |
 | Geometric / NB / Exponential / Laplace / Rayleigh sampling | inverse transform |
 | Hypergeometric sampling | sequential draws without replacement |
@@ -99,29 +99,29 @@ and rendered in the Moments & estimators panel.
 
 ### Math tests
 
-`npm test` runs **90 sanity tests** (Vitest) over the math core:
+`npm test` runs 90 tests (Vitest) over the math core:
 
-- **Hand-checked point values** — pdf/cdf values for all 17 distributions
-  verified against textbook numbers (e.g. Φ(1.96) ≈ 0.975, t-table
+- Hand-checked point values: pdf/cdf values for all 17 distributions
+  compared with known identities and reference values (e.g. Φ(1.96) ≈ 0.975, t-table
   t₀.₉₅,₅ = 2.015, I₀.₅(3,3) = 0.5).
-- **Self-consistency** — for every distribution, the density integrates/sums
+- Self-consistency: for every distribution, the density integrates/sums
   to ≈ 1 over the plotted range, its numeric moments match the closed-form
   mean/variance formulas, and the CDF matches the integrated density. This
-  catches parameterization mistakes (rate vs. scale) by construction.
+  checks for parameterization mistakes such as rate vs. scale.
   (The heavy-tailed t and Lognormal skip the slow-converging numeric second
-  moment — their variance is verified by the sampler test instead.)
-- **Sampler checks** — 40,000 seeded draws per distribution, at its default
+  moment; their variance is checked by the sampler test instead.)
+- Sampler checks: 40,000 seeded draws per distribution, at its default
   parameters, must reproduce the theoretical mean within 5 standard errors and
   the variance within 8%.
 
 ## Tech stack
 
-- **React 19 + Vite** — SPA, no backend
-- **Recharts** — charts (plus a hand-rolled SVG contour plot for the
+- React 19 + Vite: SPA, no backend
+- Recharts: charts (plus a hand-rolled SVG contour plot for the
   bivariate normal)
-- **KaTeX** — math rendering
-- **Tailwind CSS v4** — styling
-- **Vitest** — math sanity tests
+- KaTeX: math rendering
+- Tailwind CSS v4: styling
+- Vitest: math tests
 - Typography: Fraunces + IBM Plex Sans/Mono, bundled locally through Fontsource
 
 The app runs calculations in the browser and does not add analytics or send
@@ -149,6 +149,6 @@ src/
     ...                   # chart cards, sliders, tiles, shared chart theme
 ```
 
-Not included (by design): the Multinomial distribution is multivariate — its
+Not included: the Multinomial distribution is multivariate. Its
 outcome is a vector, so it doesn't fit the single-axis PDF/CDF and CLT
 framework here (its k = 2 case is exactly the Binomial).

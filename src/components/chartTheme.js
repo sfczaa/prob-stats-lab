@@ -1,4 +1,4 @@
-// Shared chart tokens — mirrors the CSS custom properties in index.css.
+// Shared chart tokens matching the CSS custom properties in index.css.
 export const C = {
   series1: '#2a78d6',
   theory: '#e34948',
